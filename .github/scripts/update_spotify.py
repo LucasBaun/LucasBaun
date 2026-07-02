@@ -118,31 +118,37 @@ def build_card_svg(status: str, track_name: str, artist: str, album_art_url: str
     album_block = ""
     if album_href:
         album_block = f"""
-  <image href="{album_href}" x="14" y="14" width="72" height="72" clip-path="url(#albumClip)" preserveAspectRatio="xMidYMid slice"/>"""
+  <image href="{album_href}" x="18" y="14" width="72" height="72" clip-path="url(#albumClip)" preserveAspectRatio="xMidYMid slice"/>"""
 
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{CARD_WIDTH}" height="{CARD_HEIGHT}" viewBox="0 0 {CARD_WIDTH} {CARD_HEIGHT}">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6d28d9"/>
-      <stop offset="45%" stop-color="#3a8f8a"/>
+      <stop offset="0%" stop-color="#1e2433"/>
+      <stop offset="50%" stop-color="#3a8f8a"/>
       <stop offset="100%" stop-color="#1e2433"/>
     </linearGradient>
-    <radialGradient id="glow" cx="70%" cy="100%" r="60%">
-      <stop offset="0%" stop-color="#ff6600" stop-opacity="0.35"/>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff6600"/>
+      <stop offset="100%" stop-color="#ffa040"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="85%" cy="15%" r="55%">
+      <stop offset="0%" stop-color="#ff6600" stop-opacity="0.28"/>
       <stop offset="100%" stop-color="#ff6600" stop-opacity="0"/>
     </radialGradient>
     <clipPath id="albumClip">
-      <rect x="14" y="14" width="72" height="72" rx="12"/>
+      <rect x="18" y="14" width="72" height="72" rx="12"/>
     </clipPath>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#1e2433" flood-opacity="0.45"/>
     </filter>
   </defs>
   <rect width="{CARD_WIDTH}" height="{CARD_HEIGHT}" rx="22" fill="url(#bg)" filter="url(#shadow)"/>
-  <rect width="{CARD_WIDTH}" height="{CARD_HEIGHT}" rx="22" fill="url(#glow)"/>{album_block}
-  <text x="100" y="30" fill="rgba(255,255,255,0.72)" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="10" font-weight="600" letter-spacing="1.4">{label}</text>
-  <text x="100" y="54" fill="#ffffff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700">{title}</text>
-  <text x="100" y="76" fill="rgba(255,255,255,0.88)" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="500">{artists}</text>
+  <rect width="{CARD_WIDTH}" height="{CARD_HEIGHT}" rx="22" fill="url(#glow)"/>
+  <rect x="0" y="0" width="5" height="{CARD_HEIGHT}" rx="22" fill="url(#accent)"/>
+  <rect x="1" y="1" width="{CARD_WIDTH - 2}" height="{CARD_HEIGHT - 2}" rx="21" fill="none" stroke="#4da29c" stroke-opacity="0.35" stroke-width="1"/>{album_block}
+  <text x="104" y="30" fill="#ffa040" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5">{label}</text>
+  <text x="104" y="54" fill="#ffffff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700">{title}</text>
+  <text x="104" y="76" fill="#4da29c" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="500">{artists}</text>
 </svg>
 """
 
