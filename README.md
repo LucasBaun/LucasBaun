@@ -65,9 +65,17 @@
 <h3>Currently listening to</h3>
 
 <!--SPOTIFY_START-->
-<p align="center">
-  <img src="https://img.shields.io/badge/Spotify-Connect_your_account-1DB954?style=for-the-badge&logo=spotify&logoColor=white"/>
-</p>
+<table align="center">
+  <tr>
+    <td align="center" valign="middle"><img src="https://i.scdn.co/image/ab67616d0000b273ec8e43a1fb62d043bbd06a24" alt="Album art" width="64" height="64"/></td>
+    <td align="left" valign="middle">
+      <a href="https://open.spotify.com/track/3DcL8FXLA9iKwqnyj9POLt" target="_blank">
+        <b>Baguetti (with JID & Kenny Beats)</b><br/>
+        <sub>Smino, JID, Kenny Beats</sub>
+      </a>
+    </td>
+  </tr>
+</table>
 <!--SPOTIFY_END-->
 
 <br/><br/>
