@@ -17,7 +17,7 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 REDIRECT_URI = "http://127.0.0.1:8080/callback"
-SCOPES = "user-read-currently-playing user-read-playback-state"
+SCOPES = "user-read-currently-playing user-read-playback-state user-read-recently-played"
 PORT = 8080
 
 

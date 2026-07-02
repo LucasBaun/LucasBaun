@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="100" viewBox="0 0 440 100">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6d28d9"/>
+      <stop offset="45%" stop-color="#3a8f8a"/>
+      <stop offset="100%" stop-color="#1e2433"/>
+    </linearGradient>
+  </defs>
+  <rect width="440" height="100" rx="22" fill="url(#bg)"/>
+  <text x="220" y="54" fill="#ffffff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" text-anchor="middle">Spotify widget loading...</text>
+</svg>

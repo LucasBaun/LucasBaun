@@ -62,11 +62,11 @@
 
 <br/><br/>
 
-<h3>Currently listening to</h3>
+<br/><br/>
 
 <!--SPOTIFY_START-->
 <p align="center">
-  <img src="https://img.shields.io/badge/Spotify-Connect_your_account-1DB954?style=for-the-badge&logo=spotify&logoColor=white"/>
+  <img src="https://raw.githubusercontent.com/LucasBaun/LucasBaun/main/assets/spotify-card.svg" alt="Spotify"/>
 </p>
 <!--SPOTIFY_END-->
 
