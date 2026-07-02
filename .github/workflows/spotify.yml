@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -47,4 +49,17 @@ jobs:
             exit 0
           fi
           git commit -m "chore: update Spotify now playing"
-          git push
+
+          for attempt in 1 2 3 4 5; do
+            echo "Push attempt $attempt..."
+            git pull --rebase origin main
+            if git push origin main; then
+              echo "Push succeeded."
+              exit 0
+            fi
+            echo "Push rejected, retrying after rebase..."
+            sleep 5
+          done
+
+          echo "Push failed after multiple attempts."
+          exit 1
