@@ -1,4 +1,5 @@
 import base64
+import hashlib
 import json
 import os
 import re
@@ -32,8 +33,12 @@ def get_access_token(client_id: str, client_secret: str, refresh_token: str) -> 
         },
     )
 
-    with urllib.request.urlopen(request) as response:
-        data = json.loads(response.read().decode())
+    try:
+        with urllib.request.urlopen(request) as response:
+            data = json.loads(response.read().decode())
+    except urllib.error.HTTPError as error:
+        body = error.read().decode()
+        raise RuntimeError(f"Spotify token refresh failed ({error.code}): {body}") from error
 
     if "access_token" not in data:
         raise RuntimeError(f"Failed to refresh Spotify token: {data}")
@@ -54,7 +59,11 @@ def spotify_get(access_token: str, url: str):
     except urllib.error.HTTPError as error:
         if error.code == 204:
             return None
-        raise
+        if error.code in (401, 403):
+            print(f"Spotify API denied access ({error.code}) for {url}", file=sys.stderr)
+            return None
+        body = error.read().decode()
+        raise RuntimeError(f"Spotify API error ({error.code}) for {url}: {body}") from error
 
 
 def get_currently_playing(access_token: str):
@@ -76,7 +85,7 @@ def get_recently_played(access_token: str):
 
 def fetch_image_base64(url: str) -> str:
     request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(request) as response:
+    with urllib.request.urlopen(request, timeout=20) as response:
         content_type = response.headers.get_content_type()
         encoded = base64.b64encode(response.read()).decode()
     return f"data:{content_type};base64,{encoded}"
@@ -102,7 +111,8 @@ def build_card_svg(status: str, track_name: str, artist: str, album_art_url: str
     if album_art_url:
         try:
             album_href = fetch_image_base64(album_art_url)
-        except urllib.error.URLError:
+        except (urllib.error.URLError, TimeoutError) as error:
+            print(f"Could not fetch album art: {error}", file=sys.stderr)
             album_href = ""
 
     album_block = ""
@@ -156,12 +166,24 @@ def resolve_track(access_token: str) -> tuple[str, dict] | None:
     return None
 
 
-def build_widget(track_url: str) -> str:
+def build_widget(track_url: str | None, cache_key: str) -> str:
+    image_url = (
+        "https://raw.githubusercontent.com/LucasBaun/LucasBaun/main/"
+        f"assets/spotify-card.svg?v={cache_key}"
+    )
+
+    if track_url:
+        return (
+            '<p align="center">\n'
+            f'  <a href="{track_url}" target="_blank">\n'
+            f'    <img src="{image_url}" alt="Spotify now playing"/>\n'
+            "  </a>\n"
+            "</p>"
+        )
+
     return (
         '<p align="center">\n'
-        f'  <a href="{track_url}" target="_blank">\n'
-        '    <img src="https://raw.githubusercontent.com/LucasBaun/LucasBaun/main/assets/spotify-card.svg" alt="Spotify now playing"/>\n'
-        "  </a>\n"
+        f'  <img src="{image_url}" alt="Spotify"/>\n'
         "</p>"
     )
 
@@ -198,14 +220,10 @@ def main() -> None:
         track_url = track["external_urls"]["spotify"]
         album_art = track["album"]["images"][0]["url"] if track["album"]["images"] else ""
         svg = build_card_svg(status, track_name, artists, album_art)
-        widget = build_widget(track_url)
+        widget = build_widget(track_url, hashlib.md5(svg.encode()).hexdigest()[:10])
     else:
         svg = build_empty_card_svg()
-        widget = (
-            '<p align="center">\n'
-            '  <img src="https://raw.githubusercontent.com/LucasBaun/LucasBaun/main/assets/spotify-card.svg" alt="Spotify"/>\n'
-            "</p>"
-        )
+        widget = build_widget(None, hashlib.md5(svg.encode()).hexdigest()[:10])
 
     os.makedirs(os.path.dirname(SVG_PATH), exist_ok=True)
     with open(SVG_PATH, "w", encoding="utf-8", newline="\n") as file:
@@ -219,6 +237,12 @@ def main() -> None:
     with open(README_PATH, "w", encoding="utf-8", newline="\n") as file:
         file.write(updated)
 
+    print("Spotify widget updated successfully.")
+
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as error:
+        print(f"Spotify update failed: {error}", file=sys.stderr)
+        sys.exit(1)
