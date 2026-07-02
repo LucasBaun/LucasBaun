@@ -62,7 +62,15 @@
 
 <br/><br/>
 
+<h3>Currently listening to</h3>
 
+<!--SPOTIFY_START-->
+<p align="center">
+  <img src="https://img.shields.io/badge/Spotify-Connect_your_account-1DB954?style=for-the-badge&logo=spotify&logoColor=white"/>
+</p>
+<!--SPOTIFY_END-->
+
+<br/><br/>
 
 <h3>Connect with me</h3>
 
@@ -70,7 +78,7 @@
   <img src="https://img.shields.io/badge/GitHub-LucasBaun-181717?style=for-the-badge&logo=github&logoColor=white"/>
 </a>
 <a href="https://linkedin.com/in/lucas-baunsgaard" target="_blank">
-  <img src="https://img.shields.io/badge/LinkedIn-lucas baunsgaard-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
+  <img src="https://img.shields.io/badge/LinkedIn-lucas--baunsgaard-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
 </a>
 
 </div>
