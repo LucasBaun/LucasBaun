@@ -8,9 +8,7 @@
 
 <br/><br/>
 
-<img src="https://github-profile-trophy.vercel.app/?username=LucasBaun&theme=onedark&no-frame=true&column=4&margin-w=8&margin-h=8" alt="GitHub Trophies"/>
 
-<br/><br/>
 
 <a href="https://civaro.se" target="_blank">
   <img src="https://img.shields.io/badge/Working_on-Civaro.se-3A8F8A?style=for-the-badge&logo=safari&logoColor=white"/>
@@ -18,10 +16,6 @@
 <a href="mailto:lucas@civaro.se">
   <img src="https://img.shields.io/badge/Email-lucas@civaro.se-FF6600?style=for-the-badge&logo=gmail&logoColor=white"/>
 </a>
-
-<br/><br/>
-
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700"/>
 
 <br/><br/>
 
@@ -56,13 +50,19 @@
 
 <br/><br/>
 
-<img src="https://user-images.githubusercontent.com/74038190/212284158-79296496-3b10-4af7-abe5-1ad675456d2d.gif" width="400"/>
-
-<br/>
-
-<img src="https://github-readme-stats.vercel.app/api?username=LucasBaun&show_icons=true&theme=transparent&hide_border=true&bg_color=1E2433&title_color=4DA29C&icon_color=FF6600&text_color=ffffff&locale=en" alt="GitHub Stats"/>
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700"/>
 
 <br/><br/>
+
+<img src="https://github-stats-extended.vercel.app/api?username=LucasBaun&rank_icon=github&show_icons=true&include_all_commits=true&theme=catppuccin_latte" alt="GitHub Stats"/>
+
+<br/><br/>
+
+<img src="https://github-trophies.vercel.app/?username=LucasBaun" alt="GitHub Trophies"/>
+
+<br/><br/>
+
+
 
 <h3>Connect with me</h3>
 
