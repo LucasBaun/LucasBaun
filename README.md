@@ -66,8 +66,8 @@
 
 <!--SPOTIFY_START-->
 <p align="center">
-  <a href="https://open.spotify.com/track/7kTlHVCARylJAqm40yVoWE" target="_blank">
-    <img src="https://raw.githubusercontent.com/LucasBaun/LucasBaun/main/assets/spotify-card.svg?v=61140e368e" alt="Spotify now playing"/>
+  <a href="https://open.spotify.com/track/7mx3o5H3YzWolHZe0Wtbam" target="_blank">
+    <img src="https://raw.githubusercontent.com/LucasBaun/LucasBaun/main/assets/spotify-card.svg?v=0980f7309a" alt="Spotify now playing"/>
   </a>
 </p>
 <!--SPOTIFY_END-->
