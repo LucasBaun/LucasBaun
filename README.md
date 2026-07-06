@@ -64,7 +64,7 @@
 
 <p align="center">
   <a href="https://open.spotify.com" target="_blank">
-    <img src="https://spotify-card-murex.vercel.app/api/spotify" alt="Spotify now playing"/>
+    <img src="https://spotify-card-murex.vercel.app/api/spotify?v=2" alt="Spotify now playing"/>
   </a>
 </p>
 
