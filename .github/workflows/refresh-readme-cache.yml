@@ -1,0 +1,61 @@
+name: Refresh README image cache
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: readme-cache
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Bump Spotify image cache version
+        run: |
+          python - <<'PY'
+          import pathlib
+          import re
+          from datetime import datetime, timezone
+
+          version = datetime.now(timezone.utc).strftime("%Y%m%d")
+          path = pathlib.Path("README.md")
+          content = path.read_text(encoding="utf-8")
+          updated = re.sub(
+              r"(spotify-card-murex\.vercel\.app/api/[^\"?]+)\?v=\d+",
+              rf"\1?v={version}",
+              content,
+          )
+          path.write_text(updated, encoding="utf-8", newline="\n")
+          PY
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --staged --quiet; then
+            echo "README already up to date for today."
+            exit 0
+          fi
+          git commit -m "chore: refresh README image cache"
+          for attempt in 1 2 3 4 5; do
+            echo "Push attempt ${attempt}..."
+            git pull --rebase origin main
+            if git push origin main; then
+              echo "Push succeeded."
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
